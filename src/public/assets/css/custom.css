@@ -1,0 +1,58 @@
+.card-header-cts{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.custom-modal{
+    transform: translate(0, 0%) !important;
+    max-width: 1000px;
+}
+@media (min-width: 576px){
+    .custom-modal {
+        max-width: 1000px !important;
+    }
+}
+.error{
+    color: red;
+}
+.pagination {
+    display: inline-block;
+  }
+  
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+.paginationjs-pages ul{
+    display: flex;
+}
+
+.paginationjs-pages ul li {
+    list-style: none;
+    width: 35px;
+    height: 35px;
+    color: #000;
+    border: 1px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.paginationjs-pages ul li:hover{
+    cursor: pointer;
+    background-color: #EE82EE;
+}
+.paginationjs-pages ul li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;;
+} 

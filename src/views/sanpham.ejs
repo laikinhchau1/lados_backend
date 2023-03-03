@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Sản phẩm</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <%- include('linkcss') %> 
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar" data-image="../assets/img/sidebar-5.jpg">
+            <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
+
+        Tip 2: you can also add an image using data-image tag
+    -->
+        <%- include('sidebar'); %>
+        </div>
+        <div class="main-panel">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg " color-on-scroll="500">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#pablo"> Table List </a>
+                    <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                        <ul class="nav navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" data-toggle="dropdown">
+                                    <i class="nc-icon nc-palette"></i>
+                                    <span class="d-lg-none">Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="dropdown nav-item">
+                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                    <i class="nc-icon nc-planet"></i>
+                                    <span class="notification">5</span>
+                                    <span class="d-lg-none">Notification</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Notification 1</a>
+                                    <a class="dropdown-item" href="#">Notification 2</a>
+                                    <a class="dropdown-item" href="#">Notification 3</a>
+                                    <a class="dropdown-item" href="#">Notification 4</a>
+                                    <a class="dropdown-item" href="#">Another notification</a>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nc-icon nc-zoom-split"></i>
+                                    <span class="d-lg-block">&nbsp;Search</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#pablo">
+                                    <span class="no-icon">Account</span>
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="no-icon">Dropdown</span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                    <div class="divider"></div>
+                                    <a class="dropdown-item" href="#">Separated link</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#pablo">
+                                    <span class="no-icon">Log out</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- End Navbar -->
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card strpied-tabled-with-hover">
+                                <div class="card-header card-header-cts">
+                                    <div>
+                                        <h4 class="card-title">Danh sách sản phẩm</h4>
+                                        <!-- <p class="card-category">Here is a subtitle for this table</p> -->
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Thêm</button>
+                                    </div>
+                                </div>
+                                <div class="card-body table-full-width table-responsive">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                            <th>ID</th>
+                                            <th>Tên SP</th>
+                                            <th>Giá</th>
+                                            <th>Ảnh</th>
+                                            <th>Mã SP</th>
+                                            <th>Tùy chọn</th>
+                                        </thead>
+                                        <tbody>
+                                            <% if(item) { %>
+                                                <% item.forEach((element,index) => { %>
+                                                    <tr>
+                                                        <td> <%=index+1%> </td>
+                                                        <td><%=element.name%></td>
+                                                        <td><%=element.price%></td>
+                                                        <td><img src="/images/<%= element.img1 %>" style="width: 60px;height: 60px;" /></td>
+                                                        <td><%=element.code%></td>
+                                                        <!-- <td><i class="fas fa-edit"></i> | <i class="fa-sharp fa-solid fa-trash"></i></td> -->
+                                                        <td>
+                                                            <div>
+                                                                <button type="button" class="btn btn-warning btn-edit-product" data-toggle="modal" data-target="#editProduct" onclick="editProduct('<%=element._id %>')">Sửa</button>
+                                                            </div>
+                                                            <div>
+                                                                <button type="button" class="btn btn-danger" onclick="deleteProduct('<%=element._id %>')">Xóa</button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                               <% }); %>
+                                            <% } %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pagination">
+                    <a href="#">&laquo;</a>
+                    <% for( let index = 0; index < pages; index++ ) { %>
+                        <a href="/sanpham?page=<%= index+1 %>" class="<%= index+1==current ? 'active' : '' %>" ><%= index+1 %></a>
+                    <% } %>
+                    <a href="#">&raquo;</a>
+                    </div>
+                        <!-- <a href="#">&laquo;</a>
+                        <a href="#">1</a>
+                        <a class="active" href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">6</a>
+                        <a href="#">&raquo;</a> -->
+                    <!-- <div id="pagination-container"></div> -->
+                </div>
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog custom-modal">
+                      <div class="modal-content">
+                  
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                          <h4 class="modal-title">Thêm sản phẩm</h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                  
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <form method="post" id="demoForm" enctype="multipart/form-data" action="/sanpham/add_new_product">
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Tên sản phẩm</label>
+                                  <input type="text" class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nhập tên sản phẩm">
+                                  <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Thông tin</label>
+                                    <textarea class="form-control" id="info" rows="3" name="info"></textarea>                       
+                                </div>
+                                <div class="form-group">
+                                    <label>Ảnh </label>
+                                    <input type="file" class="form-control-file" name="img1" id="img1">
+                                </div>
+                                <div class="form-group">
+                                    <label>Loại </label>
+                                    <input type="text" class="form-control" id="type" name="type" placeholder="Nhập mã sản phẩm">
+                                </div>
+                                <div class="form-group">
+                                    <label for="info">Mã SP</label>
+                                    <input type="text" class="form-control" id="code" name="code" placeholder="Nhập mã sản phẩm">
+                                </div>
+                                <div class="form-group">
+                                    <label for="price">Giá</label>
+                                    <input type="text" class="form-control" id="price" name="price" placeholder="Nhập giá sản phẩm">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Thêm</button>
+                              </form>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="modal" id="editProduct">
+                    <div class="modal-dialog custom-modal">
+                      <div class="modal-content">
+                  
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                          <h4 class="modal-title">Sửa sản phẩm</h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                  
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <form method="post" id="editProducForm" enctype="multipart/form-data" action="/sanpham/edit_product">
+                                <input type="hidden" name="id" id="id_edit" />
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Tên sản phẩm</label>
+                                  <input type="text" class="form-control" name="name" id="name_edit" aria-describedby="emailHelp" placeholder="Nhập tên sản phẩm">
+                                  <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Thông tin</label>
+                                    <textarea class="form-control" id="info_edit" rows="3" name="info"></textarea>                       
+                                </div>
+                                <div class="form-group">
+                                    <label>Ảnh </label>
+                                    <input type="file" class="form-control-file" name="img1" id="img1">
+                                </div>
+                                <div class="form-group">
+                                    <label>Loại </label>
+                                    <input type="text" class="form-control" id="type_edit" name="type" placeholder="Nhập mã sản phẩm">
+                                </div>
+                                <div class="form-group">
+                                    <label for="info">Mã SP</label>
+                                    <input type="text" class="form-control" id="code_edit" name="code" placeholder="Nhập mã sản phẩm">
+                                </div>
+                                <div class="form-group">
+                                    <label for="price">Giá</label>
+                                    <input type="text" class="form-control" id="price_edit" name="price" placeholder="Nhập giá sản phẩm">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Sửa</button>
+                              </form>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav>
+                        <ul class="footer-menu">
+                            <li>
+                                <a href="#">
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Company
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Portfolio
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Blog
+                                </a>
+                            </li>
+                        </ul>
+                        <p class="copyright text-center">
+                            ©
+                            <script>
+                                document.write(new Date().getFullYear())
+                            </script>
+                            <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+                        </p>
+                    </nav>
+                </div>
+            </footer>
+        </div>
+    </div>
+</body>
+<!--   Core JS Files   -->
+<!-- <script src="../public/assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="../public/assets/js/core/popper.min.js" type="text/javascript"></script>
+<script src="../public/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+<script src="../public/assets/js/plugins/bootstrap-switch.js"></script>
+<!--  Google Maps Plugin    -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!--  Chartist Plugin  -->
+<script src="../public/assets/js/plugins/chartist.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="../public/assets/js/plugins/bootstrap-notify.js"></script>
+<!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
+<script src="../public/assets/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
+<!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
+<script src="../public/assets/js/demo.js"></script>
+<script src="../public/assets/js/pagination.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+    $().ready(function() {
+	$("#demoForm").validate({
+		// onfocusout: false,
+		// onkeyup: false,
+		// onclick: false,
+		rules: {
+			"name": {
+				required: true,
+			},
+			"info": {
+				required: true,
+			},
+			"img1": {
+				required: true,
+			},
+			"type": {
+				required: true,
+			},
+			"code": {
+				required: true,
+			},
+			"price": {
+				required: true,
+			}
+		},
+		messages: {
+			"name": {
+				required: "Bạn chưa nhập tên sản phẩm",
+			},
+			"info": {
+				required: "Bạn chưa nhập thông tin sản phẩm",
+			},
+			"img1": {
+				required: "Bạn chưa thêm file",
+			},  
+			"type": {
+				required: "Bạn chưa nhập kiểu sản phẩm",
+			},
+			"code": {
+				required: "Bạn chưa nhập mã sản phẩm",
+			},
+			"price": {
+				required: "Bạn chưa nhập giá sản phẩm",
+			}
+		}
+	});
+
+    $("#editProducForm").validate({
+		// onfocusout: false,
+		// onkeyup: false,
+		// onclick: false,
+		rules: {
+			"name": {
+				required: true,
+			},
+			"info": {
+				required: true,
+			},
+			// "img1": {
+			// 	required: true,
+			// },
+			"type": {
+				required: true,
+			},
+			"code": {
+				required: true,
+			},
+			"price": {
+				required: true,
+			}
+		},
+		messages: {
+			"name": {
+				required: "Bạn chưa nhập tên sản phẩm",
+			},
+			"info": {
+				required: "Bạn chưa nhập thông tin sản phẩm",
+			},
+			// "img1": {
+			// 	required: "Bạn chưa thêm file",
+			// },  
+			"type": {
+				required: "Bạn chưa nhập kiểu sản phẩm",
+			},
+			"code": {
+				required: "Bạn chưa nhập mã sản phẩm",
+			},
+			"price": {
+				required: "Bạn chưa nhập giá sản phẩm",
+			}
+		}
+	});
+});
+</script>
+
+<script type="text/javascript">
+    $('#pagination-container').pagination({
+    dataSource: [1, 2, 3, 4, 5, 6, 7],
+    pageSize: 2
+    // callback: function(data, pagination) {
+    //     // template method of yourself
+    //     var html = template(data);
+    //     dataContainer.html(html);
+    // }
+    });
+   function editProduct(item){
+    $.ajax({url: `/sanpham/${item}/getdata`, success: function(result){
+        $('#name_edit').val(result.name)
+        $('#info_edit').val(result.info)
+        $('#type_edit').val(result.type)
+        $('#code_edit').val(result.code)
+        $('#price_edit').val(result.price)
+        $('#id_edit').val(result._id)
+    }});
+    }
+
+
+    function deleteProduct(item){
+        if (confirm("Bạn có chắc muốn xóa sản phẩm")) {
+            // OK
+            $.ajax({url: `/sanpham/${item}/delete_product`, success: function(result){
+                window.location.reload();
+            }});
+        } else {
+            // khong
+            txt = "You pressed Cancel!";
+        }
+    }
+</script>
+</html>
