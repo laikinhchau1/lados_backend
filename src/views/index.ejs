@@ -28,17 +28,17 @@
  
  <body>
     <div style="max-width: 350px ; margin: 50px auto;">
-       <form action="/dashboard">
+       <form method="POST" id="idForm" action="/sign_in">
         <!-- Email input -->
         <div class="form-outline mb-4">
-        <input type="email" id="form2Example1" class="form-control" placeholder="Email" />
-        <label class="form-label" for="form2Example1">Email address</label>
+        <input type="text" id="username" name="username" class="form-control" placeholder="User Name" />
+        <label class="form-label" for="userName">User Name</label>
         </div>
     
         <!-- Password input -->
         <div class="form-outline mb-4">
-        <input type="password" id="form2Example2" class="form-control" placeholder="Password" />
-        <label class="form-label" for="form2Example2">Password</label>
+        <input type="password" name="password" id="password" class="form-control" placeholder="Password" />
+        <label class="form-label" for="passWord">Password</label>
         </div>
     
         <!-- 2 column grid layout for inline styling -->
@@ -84,5 +84,54 @@
     </div>
     
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type="text/javascript">
+    function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        let expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+    $().ready(function() {
+        $("#idForm").submit(function(e) {
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        var form = $(this);
+        var actionUrl = form.attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: actionUrl,
+            data: form.serialize(), // serializes the form's elements.
+            success: function(data)
+            {
+                if(data.error_code == 0){
+                    window.location.href = "/dashboard";
+                    setCookie("token", data.data.token);
+                }else{
+                    console.log('sai tai khoan hoac mat khau', data)
+                }
+            }
+        });
+
+        });
+        // function onSinginClick(){
+        // $.ajax({
+        //     url: `/sign_in`, 
+        //     type: 'POST',
+        //     data: {
+        //         username: $('#username').val(),
+        //         password: $('#password').val()
+        //     },
+        //     success: function(result){
+        //     console.log('tra ra cai gi ko', result)
+        // }});
+        // }
+    })
+    
+</script>
 </html>

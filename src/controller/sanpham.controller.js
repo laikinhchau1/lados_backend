@@ -10,7 +10,6 @@ const renderProduct = async (req,res, next) => {
         .limit(perPage)
         .exec((error,item) =>{
             SanPham.countDocuments((err,count) =>{
-                console.log('ahahahahaha', Math.ceil(count / perPage) ,page)
                 if (err) return next(err);
                 res.render('sanpham.ejs',{
                     item,
