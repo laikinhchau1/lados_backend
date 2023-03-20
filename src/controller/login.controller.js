@@ -1,5 +1,6 @@
 import User from "../models/User";
 import jwt from "jsonwebtoken"
+import responseHandler from "../handlers/response.handler";
 const login = async (req, res) =>{
     
     try {
@@ -52,4 +53,21 @@ const signin = async (req , res, next) => {
     console.log('loi sever', error)
   }
 }
-export default {login, signin}
+
+
+const register = async (req , res, next) => {
+  try {
+    const dataClient = req.body
+    const username = dataClient?.user
+    const checkUser = await User.findOne({ user: username });
+
+    if (checkUser) return responseHandler.badrequest(res, "username already used");
+
+    console.log('xem co gi ban len tren nay nao`', checkUser)
+  } catch (error) {
+    res.status(500).json('loi sever')
+    console.log('loi sever', error)
+  }
+}
+
+export default {login, signin, register}
