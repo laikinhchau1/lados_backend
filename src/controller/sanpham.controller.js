@@ -1,7 +1,13 @@
 import SanPham from "../models/SanPham"
-
+import User from "../models/User"
+import jwt from "jsonwebtoken"
 const renderProduct = async (req,res, next) => {
     try{
+        const token = req?.cookies.token
+        const checkToken = jwt.verify(token, 'hieulatoi')
+
+        const user = await User.findOne({ _id: checkToken._id})
+
         let perPage = 10; // số lượng sản phẩm xuất hiện trên 1 page
         let page = req.query.page || 1; 
         SanPham
@@ -14,7 +20,8 @@ const renderProduct = async (req,res, next) => {
                 res.render('sanpham.ejs',{
                     item,
                     current: page,
-                    pages: Math.ceil(count / perPage)
+                    pages: Math.ceil(count / perPage),
+                    role: user.role
                 })
             })
         })

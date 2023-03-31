@@ -152,11 +152,16 @@
               <span class="close">&times;</span>
           </div>
           <div class="modal-body">
-            <form action="/register" method="post">
+            <form action="/register" method="post" id="register" >
                 
                 <div class="form-group">
-                    <label for="user-register">User name:</label>
+                    <label for="user-register">User:</label>
                     <input name="user" type="text" class="form-control" id="user-register">
+                </div>
+
+                <div class="form-group">
+                  <label for="user-register">User name:</label>
+                  <input name="username" type="text" class="form-control" id="username-register">
                 </div>
 
                 <div class="form-group">
@@ -166,9 +171,9 @@
                 
                 <div class="form-group">
                     <label for="email-register">Email:</label>
-                    <input name="email" type="email" class="form-control" id="email-register">
+                    <input value="" name="email" type="email" class="form-control" id="email-register">
                 </div>
-                <button type="submit" class="btn btn-primary" style="margin: 20px auto;">Submit</button>
+                <button type="submit" class="btn btn-primary" style="margin: 20px auto;" id="btn-register">Submit</button>
               </form>
             <!-- <p>Some text in the Modal Body</p>
             <p>Some other text...</p> -->
@@ -205,6 +210,7 @@
             data: form.serialize(), // serializes the form's elements.
             success: function(data)
             {
+                console.log('sai tai khoan hoac mat khau', data)
                 if(data.error_code == 0){
                     window.location.href = "/dashboard";
                     setCookie("token", data.data.token);
@@ -227,6 +233,36 @@
         //     console.log('tra ra cai gi ko', result)
         // }});
         // }
+
+        $("#register").submit(function(e) {
+
+          e.preventDefault(); // avoid to execute the actual submit of the form.
+
+          var form = $(this);
+          var actionUrl = form.attr('action');
+
+          $.ajax({
+              type: "POST",
+              url: actionUrl,
+              data: form.serialize(), // serializes the form's elements.
+              success: function(data)
+              {
+                // console.log('di choi di ti nua quay lai', data)
+                  if(data.error_code == 0){
+                    window.location.href = "/dashboard";
+                  }
+                  if(data.error_code == 1){
+                    $('#btn-register')
+                    .prev()
+                    .remove()
+                    // .end()
+                    // .before(`<div style='color: red;font-size: 10'>${data.error_message}</div>`);
+                    $("#btn-register").before(`<div style='color: red;font-size: 10'>${data.error_message}</div>`);
+                  }
+              }
+          });
+
+        });
     })
     // Get the modal
 var modal = document.getElementById("myModal");

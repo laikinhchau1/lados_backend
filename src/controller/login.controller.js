@@ -60,13 +60,43 @@ const register = async (req , res, next) => {
     const dataClient = req.body
     const username = dataClient?.user
     const checkUser = await User.findOne({ user: username });
+    // console.log('asdnajdajnasdj', dataClient)
+    // if (checkUser) return responseHandler.badrequest(res, "username already used");
+    if (checkUser) {
+      res.json({
+        error_code: 1,
+        data: null,
+        error_message: "Tài khoản đã tồn tại"
+      })
+      return 
+    }
 
-    if (checkUser) return responseHandler.badrequest(res, "username already used");
+    // luu tai khoan moi
+    const user = new User({
+      user: dataClient.user,
+      pas: dataClient.password,
+      username: dataClient.username,
+      email: dataClient.email,
+    })
 
-    console.log('xem co gi ban len tren nay nao`', checkUser)
+    user.save().then(item => {
+      // console.log('da them dc san pham vao db', item)
+      res.json({
+        error_code: 0,
+        data: null,
+        error_message: "Đăng ký tài khoản thành công"
+      })
+    }).catch(error => {
+      // console.log('cai l que gi z troi', error)
+      res.status(500).json({
+        success: false,
+        message: 'Server error. Please try again.',
+        error: error.message,
+      });
+    })
   } catch (error) {
-    res.status(500).json('loi sever')
-    console.log('loi sever', error)
+      res.status(500).json('loi sever')
+      console.log('loi sever', error)
   }
 }
 

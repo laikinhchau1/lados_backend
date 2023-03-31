@@ -18,4 +18,4 @@ app.set("views", path.join(__dirname, "/src/views"))
 configViewEngine(app)
 app.use('/',routes)
 
-app.listen(8000)
+app.listen(3000)
